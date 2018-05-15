@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <transition>
-      <keep-live>
+      <keep-alive>
         <router-view v-if="$route.meta.keepAlive"></router-view>
-      </keep-live>
+      </keep-alive>
     </transition>
     <transition>
 			<router-view v-if="!$route.meta.keepAlive"></router-view>
