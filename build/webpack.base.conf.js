@@ -36,7 +36,13 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
+      'assets': resolve('src/assets'),
+      'components': resolve('src/components'),
+      'config': resolve('src/config'),
+      'pages': resolve('src/pages'),
       'plugin': resolve('src/plugin'),
+      'router': resolve('src/router'),
+      'getData': resolve('src/service/getData'),
     }
   },
   module: {
@@ -75,6 +81,10 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
+      },
+      {
+        test: /\.less/,
+        loader: 'style-loader!css-loader!less-loader'
       }
     ]
   },

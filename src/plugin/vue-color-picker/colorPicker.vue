@@ -55,7 +55,7 @@
             v-on:click="updataValue(color)"
           ></li>
         </ul>
-        <h3 v-on:click="triggerHtml5Color">更多颜色...</h3>
+        <h3 v-on:click="triggerHtml5Color" v-show="showMoreColor">更多颜色...</h3>
       </div>
     </div>
   </div>
@@ -79,6 +79,11 @@ export default {
     disabled: {
       type: Boolean,
       default: false
+    },
+    // 更多按钮
+    showMoreColor: {
+      type: Boolean,
+      default: true
     }
   },
   data () {
@@ -197,7 +202,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .m-colorPicker{
   position: relative; text-align: left; font-size: 14px; display: inline-block;
   ul,li,ol{ list-style: none; margin: 0; padding: 0; }
