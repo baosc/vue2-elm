@@ -1,20 +1,22 @@
 <template>
   <div>
+    <headTop signin-up='home' headTitle="首页"></headTop>
     <colorPicker ref="colorPicker" v-model="color" defaultColor="red" @change="handlerColorChange" 
       :showMoreColor="false"></colorPicker>
   </div>
 </template>
 
 <script>
-import colorPicker from 'plugin/vue-color-picker/colorPicker'
-import { cityGuess } from 'getData'
+import headTop from 'components/header/header';
+import colorPicker from 'plugin/vue-color-picker/colorPicker';
+import { cityGuess } from 'getData';
 export default {
   data () {
     return {
       color: 'rgb(143, 140, 123)'
     }
   },
-  components: { colorPicker },
+  components: { colorPicker, headTop },
   methods: {
     handlerColorChange(color) {
       color = this.$refs.colorPicker.hexToRgb(color);
