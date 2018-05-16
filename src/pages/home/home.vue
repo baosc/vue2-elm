@@ -9,7 +9,7 @@
 import colorPicker from 'plugin/vue-color-picker/colorPicker'
 import { cityGuess } from 'getData'
 export default {
-  data() {
+  data () {
     return {
       color: 'rgb(143, 140, 123)'
     }
@@ -22,7 +22,7 @@ export default {
       this.color = color;
     }
   },
-  mounted() {
+  mounted () {
     cityGuess().then((result) => {
     }).catch((err) => {
     });

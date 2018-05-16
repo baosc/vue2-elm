@@ -1,9 +1,9 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import App from '@/App'
-import home from '@/pages/home/home'
+import Vue from 'vue';
+import Router from 'vue-router';
+import App from '@/App';
+import home from '@/pages/home/home';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
@@ -13,13 +13,13 @@ export default new Router({
       children: [
         {
           path: '',
-          rediect: '/home'
+          rediect: '/home',
         },
         {
           path: '/home',
-          component: home
-        }
-      ]
-    }
-  ]
-})
+          component: home,
+        },
+      ],
+    },
+  ],
+});

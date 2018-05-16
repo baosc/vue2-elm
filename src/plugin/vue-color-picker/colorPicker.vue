@@ -93,7 +93,8 @@ export default {
       // 鼠标经过的颜色块
       hoveColor: null,
       // 主题颜色
-      tColor: ['#000', '#fff', '#eeece1', '#1e497b', '#4e81bb', '#e2534d', '#9aba60', '#8165a0', '#47acc5', '#f9974c'],
+      tColor: ['#000', '#fff', '#eeece1', '#1e497b', '#4e81bb',
+      '#e2534d', '#9aba60', '#8165a0', '#47acc5', '#f9974c'],
       // 颜色面板
       colorConfig: [
         ['#7f7f7f', '#f2f2f2'],
@@ -108,17 +109,18 @@ export default {
         ['#99490f', '#fee9da']
       ],
       // 标准颜色
-      bColor: ['#c21401', '#ff1e02', '#ffc12a', '#ffff3a', '#90cf5b', '#00af57', '#00afee', '#0071be', '#00215f', '#72349d'],
-      html5Color: this.value
+      bColor: ['#c21401', '#ff1e02', '#ffc12a', '#ffff3a', '#90cf5b',
+      '#00af57', '#00afee', '#0071be', '#00215f', '#72349d'],
+      html5Color: this.value,
     }
   },
   computed: {
     // 显示面板颜色
     showPanelColor () {
       if (this.hoveColor) {
-        return this.hoveColor
+        return this.hoveColor;
       } else {
-        return this.showColor
+        return this.showColor;
       }
     },
     // 显示颜色
@@ -146,7 +148,7 @@ export default {
     updataValue (value) {
       this.$emit('input', value)
       this.$emit('change', value)
-      this.openStatus = false
+      this.openStatus = false;
     },
     // 设置默认颜色
     handleDefaultColor () {
@@ -155,51 +157,54 @@ export default {
     // 格式化 hex 颜色值
     parseColor (hexStr) {
       if (hexStr.length === 4) {
-        hexStr = '#' + hexStr[1] + hexStr[1] + hexStr[2] + hexStr[2] + hexStr[3] + hexStr[3]
+        hexStr = '#' + hexStr[1] + hexStr[1] + hexStr[2] + hexStr[2] + hexStr[3] + hexStr[3];
       } else {
-        return hexStr
+        return hexStr;
       }
     },
     // RGB 颜色 转 HEX 颜色
     rgbToHex (r, g, b) {
-      let hex = ((r << 16) | (g << 8) | b).toString(16)
-      return '#' + new Array(Math.abs(hex.length - 7)).join('0') + hex
+      let hex = ((r << 16) | (g << 8) | b).toString(16);
+      return '#' + new Array(Math.abs(hex.length - 7)).join('0') + hex;
     },
     // HEX 转 RGB 颜色
     hexToRgb (hex) {
-      hex = this.parseColor(hex)
-      let rgb = []
+      hex = this.parseColor(hex);
+      let rgb = [];
       for (let i = 1; i < 7; i += 2) {
-        rgb.push(parseInt('0x' + hex.slice(i, i + 2)))
+        rgb.push(parseInt('0x' + hex.slice(i, i + 2)));
       }
-      return rgb
+      return rgb;
     },
     // 计算渐变过渡颜色
     gradient (startColor, endColor, step) {
       // 讲 hex 转换为 rgb
-      let sColor = this.hexToRgb(startColor)
-      let eColor = this.hexToRgb(endColor)
+      let sColor = this.hexToRgb(startColor);
+      let eColor = this.hexToRgb(endColor);
 
       // 计算R\G\B每一步的差值
-      let rStep = (eColor[0] - sColor[0]) / step
-      let gStep = (eColor[1] - sColor[1]) / step
-      let bStep = (eColor[2] - sColor[2]) / step
+      let rStep = (eColor[0] - sColor[0]) / step;
+      let gStep = (eColor[1] - sColor[1]) / step;
+      let bStep = (eColor[2] - sColor[2]) / step;
 
       let gradientColorArr = []
       // 计算每一步的hex值
       for (let i = 0; i < step; i++) {
-        gradientColorArr.push(this.rgbToHex(parseInt(rStep * i + sColor[0]), parseInt(gStep * i + sColor[1]), parseInt(bStep * i + sColor[2])))
+        gradientColorArr.push(this.rgbToHex(
+          parseInt(rStep * i + sColor[0]),
+          parseInt(gStep * i + sColor[1]),
+          parseInt(bStep * i + sColor[2])));
       }
-      return gradientColorArr
-    }
+      return gradientColorArr;
+    },
   },
   mounted () {
     // 点击页面上其他地方，关闭弹窗
-    document.onclick = (e) => {
-      this.openStatus = false
-    }
-  }
-}
+    document.onclick = () => {
+      this.openStatus = false;
+    };
+  },
+};
 </script>
 
 <style lang="less" scoped>
@@ -210,17 +215,24 @@ export default {
   .colorBtn{ width: 15px; height: 15px; }
   .colorBtn.disabled{ cursor: no-drop; }
   .box{
-    position: absolute; width: 190px; background: #fff; border: 1px solid #ddd; visibility: hidden; border-radius: 2px; margin-top: 2px; padding: 10px; padding-bottom: 5px; box-shadow: 0 0 5px rgba(0,0,0,.15); opacity: 0; transition: all .3s ease;
-    h3{ margin: 0; font-size: 14px; font-weight: normal; margin-top: 10px; margin-bottom: 5px; line-height: 1; }
+    position: absolute; width: 190px; background: #fff; border: 1px solid #ddd;
+    visibility: hidden; border-radius: 2px; margin-top: 2px; padding: 10px;
+    padding-bottom: 5px; box-shadow: 0 0 5px rgba(0,0,0,.15); opacity: 0;
+    transition: all .3s ease;
+    h3{ margin: 0; font-size: 14px; font-weight: normal;
+    margin-top: 10px; margin-bottom: 5px; line-height: 1; }
   }
   .box.open{ visibility: visible; opacity: 1; }
   .hd{
     overflow: hidden; line-height: 29px;
-    .colorView{ width: 100px; height: 30px; float: left; transition: background-color .3s ease; }
-    .defaultColor{ width: 80px; float: right; text-align: center; border: 1px solid #ddd; cursor: pointer; }
+    .colorView{ width: 100px; height: 30px; float: left;
+    transition: background-color .3s ease; }
+    .defaultColor{ width: 80px; float: right; text-align:
+    center; border: 1px solid #ddd; cursor: pointer; }
   }
   .tColor{
-    li{ width: 15px; height: 15px; display: inline-block; margin: 0 2px; transition: all .3s ease; }
+    li{ width: 15px; height: 15px; display: inline-block; margin: 0 2px;
+    transition: all .3s ease; }
     li:hover{ box-shadow: 0 0 5px rgba(0,0,0,.4); transform: scale(1.3); }
   }
   .bColor{
