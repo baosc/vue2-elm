@@ -5,12 +5,6 @@
     </headTop>
     <colorPicker ref="colorPicker" v-model="color" defaultColor="red" @change="handlerColorChange" 
       :showMoreColor="false"></colorPicker>
-
-    <div class="container">
-      <h1>Example using Nested Directives</h1>
-      <p class="myclass">LESS enables customizable, manageable and reusable style sheet for web site.</p>
-    </div>
-    
   </div>
 </template>
 
@@ -51,17 +45,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@fontSize: 10px;
-@width: 1.0;
-.container{
-  h1{
-    font-size: @fontSize + 10;
-    color: #E45456;
-  }
-  p{
-    font-size: @fontSize * 2 + 10;
-    color:#3C7949;
-    width: percentage(@width);
-  }
-}
+
 </style>
