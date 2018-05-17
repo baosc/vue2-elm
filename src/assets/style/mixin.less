@@ -11,15 +11,34 @@
 }
 
 //定位上下居中
-.ct {  
+.centerTop {  
 	position: absolute;
 	top: 50%;
   transform: translateY(-50%);
 }
 
 //定位左右居中
-.cl {  
+.centerLeft {  
 	position: absolute;
 	left: 50%;
-    transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+//字体大小、行高、字体
+.font(@size, @line-height, @family: 'Microsoft YaHei') {  
+	font: @size/@line-height @family;
+}
+//字体颜色
+.sizeColor(@size, @color) {
+  font-size: @size;
+  color: @color;
+}
+//宽高
+.widthHeight(@width, @height) {
+  width: @width;
+	height: @height;
+}
+//flex 布局和子元素的对齐方式
+.flex(@type: space-between) {
+  display: flex;
+  justify-content: @type;
 }

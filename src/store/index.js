@@ -7,10 +7,7 @@ import getters from './getters';
 Vue.use(Vuex);
 
 const state = {
-  userInfo: {
-    name: '鲍孙超',
-    code: 'baosc',
-  }, // 用户信息
+  userInfo: null, // 用户信息
   count: 0,
 };
 

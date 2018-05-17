@@ -41,8 +41,8 @@ export default {
     commit,
     state,
   }) {
-    const userId = state.userInfo.user_id; // TODO: 多余操作，eslint检查
-    const res = await getUser(userId);
+    const userInfo = state.userInfo; // TODO: 多余操作，eslint检查
+    const res = await getUser(userInfo);
     commit(GET_USERINFO, res);
   },
   async saveAddress ({

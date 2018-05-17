@@ -50,15 +50,18 @@ export default {
   position: fixed;
   left: 0;
   top: 0;
-  width: 100%;
-  height: 1.95rem;
+  .widthHeight(100%, 1.95rem);
   z-index: 100;
   background-color: #3190e8;
 }
 .head_goback{
 }
 .head_login{
-
+  .centerTop;
+  right: .5rem;
+  .login_span{
+    .sizeColor(.8rem, #fff);
+  }
 }
 .title_head{
 }
