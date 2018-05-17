@@ -14,3 +14,5 @@ export const hotcity = () => fetch('/v1/cities', {
  */
 
 export const getUser = () => fetch('/v1/user', { user_id: getStore('user_id') });
+
+export const getAddressList = () => fetch('/v1/user', { user_id: getStore('user_id') });

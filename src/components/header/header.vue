@@ -7,7 +7,7 @@
         <polyline points="12,18 4,9 12,0" style="fill:none;stroke:rgb(255,255,255);stroke-width:2"/>
       </svg>
     </section>
-    <router-link :to="userInfo? '/profile':'/login'" v-if='signinUp' class="head_login">
+    <router-link class="head_login" :to="userInfo? '/profile':'/login'" v-if='signinUp'>
       <svg class="user_avatar" v-if="userInfo">
         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user"></use>
       </svg>
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import {mapState, mapActions } from 'vuex'
+import {mapState, mapActions } from 'vuex';
 export default {
   data () {
     return { }
@@ -40,9 +40,26 @@ export default {
   methods: {
     ...mapActions(['getUserInfo'])
   }
-}
+};
 </script>
 
-<style style="less" scoped>
+<style lang="less" scoped>
+@import '../../assets/style/mixin.less';
 
+#head_top{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 1.95rem;
+  z-index: 100;
+  background-color: #3190e8;
+}
+.head_goback{
+}
+.head_login{
+
+}
+.title_head{
+}
 </style>
