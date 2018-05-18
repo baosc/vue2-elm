@@ -20,7 +20,27 @@
 
     <section class="hot-city-container">
       <h4 class="city-title">热门城市</h4>
-      <ul class="city-list"></ul>
+      <ul class="city-list clear">
+        <router-link tag="li" v-for="(city, index) in hotCity" :key="'hot-city-' + index"
+          :to="'/city/' + city.id">
+          {{city.name}}
+        </router-link>
+      </ul>
+    </section>
+
+    <section class="group-city-container">
+      <ul>
+        <li v-for="(letterCity, key, index) in ordergroupCity" :key="'group' + key"
+           class="letter-group-city">
+          <h4>{{key}}</h4>
+          <ul class="letter-cities clear">
+            <router-link tag="li" v-for="(city, index) in letterCity" 
+              :to="'/city/' + city.id" class="letter-city ellipsis">
+              {{city.name}}
+            </router-link>
+          </ul>
+        </li>
+      </ul>
     </section>
   </div>
 </template>
@@ -28,7 +48,7 @@
 <script>
 import headTop from 'components/header/header';
 import colorPicker from 'plugin/vue-color-picker/colorPicker';
-import { cityGuess, hotCity } from 'getData';
+import { cityGuess, hotCity, groupCity } from 'getData';
 export default {
   data () {
     return {
@@ -40,6 +60,19 @@ export default {
     }
   },
   components: { colorPicker, headTop },
+  mounted () {
+    cityGuess().then((result) => {
+      this.guessCity = result.name;
+      this.guessCityid = result.id;
+    }).catch((err) => {
+    });
+    this.getHotCity();
+    groupCity().then((result) => {
+      this.groupCity = result;
+      let keys = Object.keys(this.groupCity);
+    }).catch((err) => {
+    });
+  },
   methods: {
     handlerColorChange(color) {
       color = this.$refs.colorPicker.hexToRgb(color);
@@ -52,18 +85,25 @@ export default {
     },
     async getHotCity() {
       let hc = await hotCity();
-      console.log(hc);
       this.hotCity = hc;
+    },
+    async getGroupCity() {
+      let gc = await groupCity();
+      this.groupCity = gc;
     }
   },
-  mounted () {
-    cityGuess().then((result) => {
-      this.guessCity = result.name;
-      this.guessCityid = result.id;
-    }).catch((err) => {
-    });
-    this.getHotCity();
-  }
+  computed: {
+    ordergroupCity() {
+      let sortobj = {};
+      for (let i = 65; i < 90; i++) {
+        const key = String.fromCharCode(i);
+        if (this.groupCity[key]) {
+          sortobj[key] = this.groupCity[key];
+        }
+      }
+      return sortobj;
+    }
+  },
 }
 </script>
 
@@ -75,41 +115,89 @@ export default {
   left: 0.5rem;
 }
 .city-nav {
-    padding-top: 2.35rem;
-    border: 1px solid #e4e4e4;
-    background: #fff;
-    margin-bottom: 0.4rem;
-    .city-tip{
-      display: flex;
-      justify-content: space-between;
-      line-height: 1.45rem;
-      padding: 0 0.45rem;
-      span{
-        &:first-of-type{
-          font-size: .55rem;
-          color: #666;
-        }
-        &:nth-of-type(2){
-          font-weight: 900;
-          font-size: .475rem;
-          color: #9f9f9f;
-        }
+  padding-top: 2.35rem;
+  border: 1px solid #e4e4e4;
+  background: #fff;
+  margin-bottom: 0.4rem;
+  .city-tip{
+    .flex();
+    line-height: 1.45rem;
+    padding: 0 0.45rem;
+    span{
+      &:first-of-type{
+        font-size: 0.55rem;
+        color: #666;
+      }
+      &:nth-of-type(2){
+        font-weight: 900;
+        font-size: .475rem;
+        color: #9f9f9f;
       }
     }
-    .guess-city{
-      .flex();
-      .font(.7rem, 1.8rem);
-      align-items: center;
-      padding: 0 0.45rem;
-      span {
-        &:first-of-type{
-          color: #3190e8;
-        }
-      }
-      .arrow_right{
-        .widthHeight(.6rem, .6rem);
-        fill: #999;
+  }
+  .guess-city{
+    height: 1.8rem;
+    border-bottom: 2px solid @bc;
+    .flex();
+    .font(.7rem, 1.8rem);
+    align-items: center;
+    padding: 0 0.45rem;
+    span {
+      &:first-of-type{
+        color: #3190e8;
       }
     }
+    .arrow_right{
+      .widthHeight(.6rem, .6rem);
+      fill: #999;
+    }
+  }
+}
+.hot-city-container{
+  background: #fff;
+  margin-bottom: 0.4rem;
+  .city-title{
+    padding: 0 0.45rem;
+    .font(0.6rem, 1.45rem, Helvetica Neue);
+    border-top: 2px solid @bc;
+  }
+  .city-list{
+    border-bottom: 2px solid #e4e4e4;
+    li{
+      float: left;
+      width: 25%;
+      height: 1.75rem;
+      .sizeColor(0.6rem, @blue);
+      .font(0.6rem, 1.75rem);
+      text-align: center;
+      border-top: 1px solid @bc;
+      border-right: 1px solid @bc;
+    }
+  }
+}
+.group-city-container {
+  background: #fff;
+  margin-bottom: 0.4rem;
+  .letter-group-city{
+    margin-bottom: .4rem;
+    h4{
+      .font(.55rem, 1.45rem);
+      text-indent: .45rem;
+      border-top: 1px solid @bc;
+      border-bottom: 1px solid @bc;
+    }
+    .letter-cities{
+      border-bottom: 2px solid @bc;
+      .letter-city{
+        float: left;
+        width: 25%;
+        .font(.6rem, 1.75rem);
+        color: #666;
+        text-align: center;
+        border-bottom: 1px solid @bc;
+        border-right: 1px solid @bc;
+      }
+    }
+  }
 }
 </style>

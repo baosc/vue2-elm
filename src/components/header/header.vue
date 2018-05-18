@@ -14,7 +14,7 @@
       <span class="login_span" v-else>登录|注册</span>
     </router-link>
     <section class="title_head ellipsis" v-if="headTitle">
-      <span class="title_text">{{headTitle}}</span>
+      <div class="title_text ellipsis">{{headTitle}}</div>
     </section>
     <slot name="edit"></slot>
     <slot name="msite-title"></slot>
@@ -55,14 +55,26 @@ export default {
   background-color: #3190e8;
 }
 .head_goback{
+  height: 1rem;
+  line-height: 2.2rem;
+  margin-left: .4rem;
 }
 .head_login{
   .centerTop;
+  .sizeColor(0.65rem, #fff);
   right: .5rem;
   .login_span{
-    .sizeColor(.8rem, #fff);
+    color: #fff;
   }
 }
 .title_head{
+  color: #fff;
+  .center();
+  width: 50%;
+  text-align: center;
+  .title_text{
+    .sizeColor(.8rem, #fff);
+    line-height: .8rem;    
+  }
 }
 </style>

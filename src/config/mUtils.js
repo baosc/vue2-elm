@@ -14,6 +14,11 @@ export const setStore = (name, content) => {
  * 获取localStorage
  */
 export const getStore = (name) => {
-  if (!name) return null;
+  if (!name) return '';
   return window.localStorage.getItem(name);
+};
+
+export const removeStore = (name) => {
+  if (!name) return false;
+  return window.localStorage.removeItem(name);
 };
