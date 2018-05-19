@@ -34,7 +34,7 @@
            class="letter-group-city">
           <h4>{{key}}</h4>
           <ul class="letter-cities clear">
-            <router-link tag="li" v-for="(city, index) in letterCity" 
+            <router-link tag="li" v-for="(city, index) in letterCity" :key="index"
               :to="'/city/' + city.id" class="letter-city ellipsis">
               {{city.name}}
             </router-link>

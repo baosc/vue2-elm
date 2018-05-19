@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import home from '@/pages/home/home';
 import less from '@/pages/less/less';
+import login from '@/pages/login/login';
 import city from '@/pages/city/city';
 
 Vue.use(Router);
@@ -20,6 +21,10 @@ export default new Router({
     {
       path: '/less',
       component: less,
+    },
+    {
+      path: '/login',
+      component: login,
     },
     {
       path: '/city/:cityid',

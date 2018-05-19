@@ -43,3 +43,18 @@ export const currentCity = number => fetch(`/v1/cities/${number}`);
 export const getUser = () => fetch('/v1/user', { user_id: getStore('user_id') });
 
 export const getAddressList = () => fetch('/v1/user', { user_id: getStore('user_id') });
+
+/**
+ * 获取短信验证码
+ */
+
+export const mobileCode = phone => fetch('/v4/mobile/verify_code/send', {
+  mobile: phone,
+  scene: 'login',
+  type: 'sms',
+}, 'POST');
+
+/**
+ * 获取图片验证码
+ */
+export const getcaptchas = () => fetch('/v1/captchas', {}, 'POST');

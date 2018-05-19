@@ -144,17 +144,17 @@ export default {
   .pos-name{
     width: 90%;
     margin: 0 auto;
-    padding-top: 0.4rem;
-    .font(.8rem, 1rem);
+    padding-top: 0.3rem;
+    .font(.5rem, 1rem);
   }
   .pos-address{
     width: 90%;
-    margin: 0.4rem auto;
-    .font(.6rem, 1rem);
+    margin: 0.3rem auto;
+    .font(.5rem, 1rem);
   }
 }
 .clear-all-history{
-  .font(.8rem, 2rem);
+  .font(.6rem, 2rem);
   text-align: center;
   background: #fff;
 }

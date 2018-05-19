@@ -55,7 +55,7 @@ export default {
   background-color: #3190e8;
 }
 .head_goback{
-  height: 1rem;
+  height: .8rem;
   line-height: 2.2rem;
   margin-left: .4rem;
 }
@@ -73,7 +73,7 @@ export default {
   width: 50%;
   text-align: center;
   .title_text{
-    .sizeColor(.8rem, #fff);
+    .sizeColor(.7rem, #fff);
     line-height: .8rem;    
   }
 }

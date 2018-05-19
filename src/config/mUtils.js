@@ -1,3 +1,6 @@
+
+export const SUCCESSCODE = 1;
+
 /**
  * 存储localStorage
  */
@@ -22,3 +25,4 @@ export const removeStore = (name) => {
   if (!name) return false;
   return window.localStorage.removeItem(name);
 };
+
