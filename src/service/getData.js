@@ -1,6 +1,7 @@
+'use struck';
+
 import fetch from '../config/fetch';
 import { getStore } from '../config/mUtils';
-
 
 /**
  * 获取定位城市信息
@@ -35,12 +36,23 @@ export const searchPlace = (cityid, keyword) => fetch('/v1/pois', {
 /**
  * 获取城市信息
  */
+
 export const currentCity = number => fetch(`/v1/cities/${number}`);
+
 /**
  * 获取用户信息
  */
 
 export const getUser = () => fetch('/v1/user', { user_id: getStore('user_id') });
+
+/**
+ * 检测帐号是否存在
+ */
+
+export const checkExsis = (checkNumber, type) => fetch('/v1/users/exists', {
+  [type]: checkNumber,
+  type,
+});
 
 export const getAddressList = () => fetch('/v1/user', { user_id: getStore('user_id') });
 
@@ -58,3 +70,10 @@ export const mobileCode = phone => fetch('/v4/mobile/verify_code/send', {
  * 获取图片验证码
  */
 export const getcaptchas = () => fetch('/v1/captchas', {}, 'POST');
+
+
+/**
+ * 获取客户端IP
+ */
+
+export const getClientIp = () => 'http://192.168.9.224:8080';

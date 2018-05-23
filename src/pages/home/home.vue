@@ -46,9 +46,11 @@
 </template>
 
 <script>
+import QRCode from 'qrcode'
 import headTop from 'components/header/header';
 import colorPicker from 'plugin/vue-color-picker/colorPicker';
 import { cityGuess, hotCity, groupCity } from 'getData';
+import { setStore, getStore } from 'config/mUtils';
 export default {
   data () {
     return {
@@ -61,17 +63,42 @@ export default {
   },
   components: { colorPicker, headTop },
   mounted () {
+    //定位城市
     cityGuess().then((result) => {
       this.guessCity = result.name;
       this.guessCityid = result.id;
     }).catch((err) => {
     });
+    //获取热门城市
     this.getHotCity();
-    groupCity().then((result) => {
-      this.groupCity = result;
-      let keys = Object.keys(this.groupCity);
-    }).catch((err) => {
-    });
+    //获取所有城市
+    let gcJSON = getStore('groupCity');
+    if(!gcJSON){
+      groupCity().then((result) => {
+        this.groupCity = result;
+        setStore('groupCity', this.groupCity);
+        let keys = Object.keys(this.groupCity);
+      }).catch((err) => {
+      });
+    } else {
+      this.groupCity = JSON.parse(gcJSON);
+    }
+    //设置手机快速访问二维码
+    const previewClassName = 'logo_qrcode';
+    const preview = document.getElementsByClassName(previewClassName);
+    if (!preview.length) {
+      const previewUrl = this.$root.previewUrl;
+      QRCode.toDataURL(previewUrl)
+      .then(url => {
+        let img = document.createElement('img');
+        img.src = url;
+        img.className = previewClassName;
+        document.body.appendChild(img);
+      })
+      .catch(err => {
+        console.error(err)
+      });
+    }
   },
   methods: {
     handlerColorChange(color) {
@@ -87,10 +114,6 @@ export default {
       let hc = await hotCity();
       this.hotCity = hc;
     },
-    async getGroupCity() {
-      let gc = await groupCity();
-      this.groupCity = gc;
-    }
   },
   computed: {
     ordergroupCity() {

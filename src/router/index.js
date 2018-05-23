@@ -4,6 +4,7 @@ import home from '@/pages/home/home';
 import less from '@/pages/less/less';
 import login from '@/pages/login/login';
 import city from '@/pages/city/city';
+import msite from '@/pages/msite/msite';
 
 Vue.use(Router);
 
@@ -29,6 +30,10 @@ export default new Router({
     {
       path: '/city/:cityid',
       component: city,
+    },
+    {
+      path: '/msite',
+      component: msite,
     },
   ],
 });
