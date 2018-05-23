@@ -73,6 +73,13 @@ export const getcaptchas = () => fetch('/v1/captchas', {}, 'POST');
 
 
 /**
+ * 获取msite页面地址信息
+ */
+
+export const msiteAddress = geohash => fetch(`/v2/pois/${geohash}`);
+
+
+/**
  * 获取客户端IP
  */
 

@@ -1,6 +1,9 @@
 <template>
   <div class="msite">
-    <head-top></head-top>
+    <head-top>
+      <div slot="search">搜索</div>
+      <div slot="msite-title">{{msiteTitle}}</div>
+    </head-top>
     <nav class="msite-nav"></nav>
     <div class="shop-list-container">
     </div>
@@ -9,8 +12,10 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 import headTop from 'components/header/header';
 import footerBottom from 'components/footer/footer';
+import { cityGuess, msiteAddress } from 'getData';
 export default {
   data() {
     return {
@@ -21,6 +26,29 @@ export default {
     }
   },
   components: { headTop,footerBottom },
+  async beforeMount() {
+    const geohash = this.$route.query.geohash;
+    if(geohash) {
+      this.geohash = geohash;
+    } else {
+      //不存在
+      let res = await cityGuess();
+      this.geohash = address.latitude + ',' + address.longitude;
+    }
+    //保存geohash 到vuex
+    this.SAVE_GEOHASH(this.geohash);
+    //获取位置信息
+    let res = await msiteAddress(this.geohash);
+    this.msiteTitle = res.name;
+    //记录当前经度纬度
+    this.RECODE_ADDRESS(res);
+    this.hasGetData = true;
+  },
+  mounted(){
+  },
+  methods: {
+    ...mapMutations(['SAVE_GEOHASH', 'RECODE_ADDRESS'])
+  }
 }
 </script>
 

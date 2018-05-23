@@ -1,5 +1,7 @@
 import {
   GET_USERINFO,
+  SAVE_GEOHASH,
+  RECODE_ADDRESS,
 } from './mutation-types';
 
 export default {
@@ -18,5 +20,12 @@ export default {
     } else {
       state.userInfo = null;
     }
+  },
+  [SAVE_GEOHASH] (state, geohash) {
+    state.geohash = geohash;
+  },
+  [RECODE_ADDRESS] (state, { latitude, longitude }) {
+    state.latitude = latitude;
+    state.longitude = longitude;
   },
 };
