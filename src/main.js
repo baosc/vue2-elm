@@ -6,7 +6,7 @@ import App from './App';
 import router from './router';
 import store from './store/';
 import './config/rem';
-
+import './assets/icon/iconfont.css';
 import { getClientIp } from './service/getData';
 
 Vue.config.productionTip = false;

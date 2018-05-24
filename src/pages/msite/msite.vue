@@ -1,8 +1,12 @@
 <template>
   <div class="msite">
-    <head-top>
-      <div slot="search">搜索</div>
-      <div slot="msite-title">{{msiteTitle}}</div>
+    <head-top signin-up='msite'>
+      <router-link :to="'/search/geohash'" class="msite-search" slot="search">
+	    	<i class="icon iconfont icon-search"></i>
+    	</router-link>
+      <router-link to="/home" slot="msite-title" class="msite-title">
+        <span class="title-text ellipsis">{{msiteTitle}}</span>
+      </router-link>
     </head-top>
     <nav class="msite-nav"></nav>
     <div class="shop-list-container">
@@ -53,5 +57,20 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
+@import '../../assets/style/mixin.less';
+.msite-search{
+  left: .8rem;
+  .centerTop();
+  .iconfont{
+    .sizeColor(.9rem, #fff);
+  }
+}
+.msite-title{
+  .center();
+  width: 50%;
+  .title-text{
+    display: block;
+    .sizeColor(.8rem, #fff);
+  }
+}
 </style>
