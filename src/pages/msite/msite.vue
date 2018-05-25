@@ -39,7 +39,7 @@ export default {
       let res = await cityGuess();
       this.geohash = address.latitude + ',' + address.longitude;
     }
-    //保存geohash 到vuex
+    //保存geohash到vuex
     this.SAVE_GEOHASH(this.geohash);
     //获取位置信息
     let res = await msiteAddress(this.geohash);
