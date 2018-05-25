@@ -119,12 +119,12 @@ export default {
     margin: 0 auto;
     .city-input{
       width: 100%;
-      .font(.7rem, 1.4rem);
+      .font(.5rem, 1.4rem);
       border: 1px solid #e4e4e4;
       text-indent: 0.3rem;
     }
     .city-submit{
-      .font(.7rem, 1.4rem);
+      .font(.6rem, 1.4rem);
       .widthHeight(100%, 1.4rem);
       margin: .4rem 0;
       background: @blue;
@@ -144,13 +144,13 @@ export default {
   .pos-name{
     width: 90%;
     margin: 0 auto;
-    padding-top: 0.3rem;
+    padding-top: 0.2rem;
     .font(.5rem, 1rem);
   }
   .pos-address{
     width: 90%;
-    margin: 0.3rem auto;
-    .font(.5rem, 1rem);
+    margin: 0rem auto 0.2rem;
+    .font(.4rem, 1rem);
   }
 }
 .clear-all-history{

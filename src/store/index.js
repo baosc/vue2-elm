@@ -7,8 +7,11 @@ import getters from './getters';
 Vue.use(Vuex);
 
 const state = {
+  latitude: '', // 当前位置纬度
+  longitude: '', // 当前位置经度
   userInfo: null, // 用户信息
   count: 0,
+  geohash: '', // //地址geohash值
 };
 
 const store = new Vuex.Store({
