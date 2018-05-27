@@ -14,7 +14,7 @@ Vue.config.productionTip = false;
 Vue.use(Vuex);
 
 const previewUrl = getClientIp();
-/* eslint-disable no-new */
+/* eslint-disable no-new  */
 new Vue({
   el: '#app',
   data: {
