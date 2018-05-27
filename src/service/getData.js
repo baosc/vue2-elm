@@ -78,6 +78,11 @@ export const getcaptchas = () => fetch('/v1/captchas', {}, 'POST');
 
 export const msiteAddress = geohash => fetch(`/v2/pois/${geohash}`);
 
+export const msiteFoodType = geohash => fetch('/v2/index_entry', {
+  geohash,
+  group_type: '1',
+  'flags[]': 'F',
+});
 
 /**
  * 获取客户端IP

@@ -8,7 +8,23 @@
         <span class="title-text ellipsis">{{msiteTitle}}</span>
       </router-link>
     </head-top>
-    <nav class="msite-nav"></nav>
+    <nav class="msite-nav">
+      <div class="swiper-container" v-if="foodTypes.length">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide" v-for="(item, index) in foodTypes" :key="index">
+            <router-link :to="{path: '/food'}" v-for="foodItem in item" :key="foodItem.id" class="link-to-food">
+              <figure>
+                <img :src="imgBaseUrl + foodItem.image_url">
+                <figcaption>{{foodItem.title}}</figcaption>  
+              </figure>
+            </router-link>
+          </div>
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+      <img src="../../assets/images/fl.svg" class="fl_back animation_opactiy" v-else>
+    </nav>
+
     <div class="shop-list-container">
     </div>
     <footer-bottom></footer-bottom>
@@ -19,7 +35,9 @@
 import { mapMutations } from 'vuex';
 import headTop from 'components/header/header';
 import footerBottom from 'components/footer/footer';
-import { cityGuess, msiteAddress } from 'getData';
+import { cityGuess, msiteAddress, msiteFoodType } from 'getData';
+import Swiper from 'swiper';
+import 'plugin/swiper/swiper-4.2.6.min.css';
 export default {
   data() {
     return {
@@ -27,6 +45,7 @@ export default {
       msiteTitle: '请选择地址...', // msite页面头部标题
       hasGetData: false, //是否已经获取地理位置数据，成功之后再获取商铺列表信息
       imgBaseUrl: 'https://fuss10.elemecdn.com', //图片域名地址
+      foodTypes: [],  //食品分类列表
     }
   },
   components: { headTop,footerBottom },
@@ -49,6 +68,24 @@ export default {
     this.hasGetData = true;
   },
   mounted(){
+    //获取导航食品类型列表
+    msiteFoodType(this.geohash).then(res => {
+      let resLength = res.length;
+      let resArr = [...res]; // 返回一个新的数组
+      let foodArr = [];
+      for (let i = 0, j = 0; i < resLength; i += 8, j++) {
+        foodArr[j] = resArr.splice(0, 8);
+      }
+      this.foodTypes = foodArr;
+    }).then(() => {
+      //初始化swiper
+      new Swiper('.swiper-container', {
+          pagination: {
+            el: '.swiper-pagination'
+          },
+          loop: true
+      });
+    });
   },
   methods: {
     ...mapMutations(['SAVE_GEOHASH', 'RECODE_ADDRESS'])
@@ -71,6 +108,35 @@ export default {
   .title-text{
     display: block;
     .sizeColor(.8rem, #fff);
+  }
+}
+.msite-nav{
+  padding-top: 2.1rem;
+  background-color: #fff;
+  border-bottom: .025rem solid #e4e4e4;
+  height: 10.6rem;
+  .swiper-slide{
+    display: flex;
+    flex-wrap: wrap;
+    .link-to-food{
+      display: flex;
+      justify-content: center;
+      width: 25%;
+      padding: .3rem 0;
+      text-align: center;
+      img{
+        width: 1.8rem;
+        height: 1.8rem;
+        margin-bottom: .3rem;
+      }
+      figcaption{
+        font-size: .55rem;
+      }
+    }
+  }
+
+  .swiper-pagination{
+    bottom: .1rem;
   }
 }
 </style>
