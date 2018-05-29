@@ -26,6 +26,10 @@
     </nav>
 
     <div class="shop-list-container">
+      <header class="shop-header">
+        <i class="icon iconfont icon-shop"></i>
+        <span class="shop-header-title">附件商家</span>
+      </header>
       <shop-list></shop-list>
     </div>
     <footer-bottom></footer-bottom>
@@ -145,6 +149,18 @@ export default {
 
   .swiper-pagination{
     bottom: .1rem;
+  }
+}
+.shop-list-container{
+  background: #fff;
+  .shop-header{
+    padding-left: .3rem;
+    .icon-shop{
+      font-size: .6rem;
+    }
+    .shop-header-title{
+      font-size: .6rem;
+    }
   }
 }
 </style>

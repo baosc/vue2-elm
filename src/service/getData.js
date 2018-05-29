@@ -78,12 +78,43 @@ export const getcaptchas = () => fetch('/v1/captchas', {}, 'POST');
 
 export const msiteAddress = geohash => fetch(`/v2/pois/${geohash}`);
 
+/**
+ * 获取msite页面食品分类列表
+ */
+
 export const msiteFoodType = geohash => fetch('/v2/index_entry', {
   geohash,
   group_type: '1',
   'flags[]': 'F',
 });
 
+/**
+ * 获取msite商铺列表
+ */
+
+export const shopList = (latitude, longitude, offset,
+  restaurant_category_id = '', restaurant_category_ids = '',
+  order_by = '', deliveryMode = '', support_ids = []) => {
+  let supportStr = '';
+  support_ids.forEach((item) => {
+    if (item.status) {
+      supportStr += `&support_ids[]=${item.id}`;
+    }
+  });
+  const data = {
+    latitude,
+    longitude,
+    offset,
+    limit: '20',
+    'extras[]': 'activities',
+    keyword: '',
+    restaurant_category_id,
+    'restaurant_category_ids[]': restaurant_category_ids,
+    order_by,
+    'delivery_mode[]': deliveryMode + supportStr,
+  };
+  return fetch('/shopping/restaurants', data);
+};
 
 /**
  * 获取客户端IP
