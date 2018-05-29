@@ -26,6 +26,7 @@
     </nav>
 
     <div class="shop-list-container">
+      <shop-list></shop-list>
     </div>
     <footer-bottom></footer-bottom>
   </div>
@@ -34,9 +35,11 @@
 <script>
 import { mapMutations } from 'vuex';
 import headTop from 'components/header/header';
+import shopList from 'components/common/shoplist';
 import footerBottom from 'components/footer/footer';
 import { cityGuess, msiteAddress, msiteFoodType } from 'getData';
-import 'plugin/swiper/swiper-4.2.6.min.js';
+// import 'plugin/swiper/swiper-4.2.6.min.js';
+import Swiper from 'swiper';
 import 'plugin/swiper/swiper-4.2.6.min.css';
 export default {
   data() {
@@ -48,7 +51,7 @@ export default {
       foodTypes: [],  //食品分类列表
     }
   },
-  components: { headTop,footerBottom },
+  components: { headTop, shopList, footerBottom },
   async beforeMount() {
     const geohash = this.$route.query.geohash;
     if(geohash) {
@@ -70,6 +73,7 @@ export default {
   mounted(){
     //获取导航食品类型列表
     msiteFoodType(this.geohash).then(res => {
+      console.log(res);
       let resLength = res.length;
       let resArr = [...res]; // 返回一个新的数组
       let foodArr = [];
@@ -86,6 +90,7 @@ export default {
           loop: true
       });
     });
+
   },
   methods: {
     ...mapMutations(['SAVE_GEOHASH', 'RECODE_ADDRESS'])
@@ -115,6 +120,9 @@ export default {
   background-color: #fff;
   border-bottom: .025rem solid #e4e4e4;
   height: 10.6rem;
+  .swiper-container{
+    padding-bottom: .6rem;
+  }
   .swiper-slide{
     display: flex;
     flex-wrap: wrap;

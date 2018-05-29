@@ -84,6 +84,7 @@ export const msiteFoodType = geohash => fetch('/v2/index_entry', {
   'flags[]': 'F',
 });
 
+
 /**
  * 获取客户端IP
  */
