@@ -14,8 +14,12 @@
               </li>
             </ul>
           </header>
-          <h5>1</h5>
-          <h5>2</h5>
+          <h5 class="shop-rate">{{item.rating + '分'}}</h5>
+          <h5 class="fee-distance">
+            <span>{{item.float_minimum_order_amount}}起送</span>
+            /
+            <span>{{item.piecewise_agent_fee.tips}}</span>
+          </h5>
         </hgroup>
       </li>
     </ul>
@@ -93,6 +97,14 @@ export default {
           margin-left: .2rem;
         }
       }
+    }
+    .shop-rate{
+      font-size: .5rem;
+      margin-top: .3rem;
+    }
+    .fee-distance{
+      font-size: .5rem;
+      margin-top: .3rem;
     }
   }
 }
