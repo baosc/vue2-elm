@@ -32,7 +32,7 @@
       <ul>
         <li v-for="(letterCity, key, index) in ordergroupCity" :key="'group' + key"
            class="letter-group-city">
-          <h4>{{key}}</h4>
+          <h4 class="letter-group-title">{{key}}</h4>
           <ul class="letter-cities clear">
             <router-link tag="li" v-for="(city, index) in letterCity" :key="index"
               :to="'/city/' + city.id" class="letter-city ellipsis">
@@ -42,11 +42,17 @@
         </li>
       </ul>
     </section>
+    <aside class="letter-guide">
+      <ul>
+        <li v-for="(letter, index) in letterArr" :key="index">
+          {{letter}}
+        </li>
+      </ul>
+    </aside>
   </div>
 </template>
 
 <script>
-import QRCode from 'qrcode'
 import headTop from 'components/header/header';
 import colorPicker from 'plugin/vue-color-picker/colorPicker';
 import { cityGuess, hotCity, groupCity } from 'getData';
@@ -59,6 +65,7 @@ export default {
       guessCityid: '',//当前城市id
       hotCity: [], //热门城市
       groupCity: {} , //所有城市列表
+      letterArr: [],
     }
   },
   components: { colorPicker, headTop },
@@ -83,22 +90,12 @@ export default {
     } else {
       this.groupCity = JSON.parse(gcJSON);
     }
-    //设置手机快速访问二维码
-    const previewClassName = 'logo_qrcode';
-    const preview = document.getElementsByClassName(previewClassName);
-    if (!preview.length) {
-      const previewUrl = this.$root.previewUrl;
-      QRCode.toDataURL(previewUrl)
-      .then(url => {
-        let img = document.createElement('img');
-        img.src = url;
-        img.className = previewClassName;
-        document.body.appendChild(img);
-      })
-      .catch(err => {
-        console.error(err)
-      });
+    //生成a-z数组
+    let arr = [];
+    for (let i = 0; i < 26; i++) {
+      arr.push(String.fromCharCode(65+i));
     }
+    this.letterArr = arr;
   },
   methods: {
     handlerColorChange(color) {
@@ -202,12 +199,16 @@ export default {
   background: #fff;
   margin-bottom: 0.4rem;
   .letter-group-city{
-    margin-bottom: .4rem;
-    h4{
+    // margin-bottom: .4rem;
+    .letter-group-title{
+      position: sticky;
+      top: 1.95rem;
+      z-index: 99;
       .font(.55rem, 1.45rem);
       text-indent: .45rem;
       border-top: 1px solid @bc;
       border-bottom: 1px solid @bc;
+      background: @bc;
     }
     .letter-cities{
       border-bottom: 2px solid @bc;
@@ -222,5 +223,14 @@ export default {
       }
     }
   }
+}
+.letter-guide {
+  position: fixed;
+  top: 50%;
+  right: .1rem;
+  transform: translateY(-50%);
+  z-index: 100;
+  font-size: .5rem;
+  text-align: center;
 }
 </style>

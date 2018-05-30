@@ -42,7 +42,6 @@ import headTop from 'components/header/header';
 import shopList from 'components/common/shoplist';
 import footerBottom from 'components/footer/footer';
 import { cityGuess, msiteAddress, msiteFoodType } from 'getData';
-// import 'plugin/swiper/swiper-4.2.6.min.js';
 import Swiper from 'swiper';
 import 'plugin/swiper/swiper-4.2.6.min.css';
 export default {
