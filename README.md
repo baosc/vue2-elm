@@ -1,6 +1,7 @@
 # vue2-elm
 
 > A Vue.js project
+> 参考 https://h5.ele.me/msite/ 以及 https://github.com/bailicangdu/vue2-elm
 
 ## Build Setup
 

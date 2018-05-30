@@ -23,6 +23,8 @@
         </hgroup>
       </li>
     </ul>
+
+    <aside v-show="showBackStatus" class="return-top" @click="backTop"></aside>
     <transition name="loading">
 			<loading v-show="showLoading"></loading>
 		</transition>
@@ -33,6 +35,7 @@
 import loading from './loading';
 import { loadMore } from 'components/common/mixin';
 import { imgBaseUrl } from 'config/env';
+import { showBack, animate } from 'config/mUtils';
 import { shopList } from 'getData';
 export default {
   name: 'shopList',
@@ -52,15 +55,29 @@ export default {
   created() {
   },
   mounted() {
-    shopList().then((res) => {
-      console.log(res);
-      this.shopListArr = res;
-    }).catch((err) => {
-    });
+    this.initData();
   },
   methods: {
+    async initData() {
+      let res = await shopList();
+      this.shopListArr = res;
+      if(res.length < 20) {
+        this.touchend = true;
+      }
+      this.hideLoading();
+      //监听scrollTop的值，判断是否显示返回顶部按钮
+      showBack((status) => {
+        this.showBackStatus = status;
+      });
+    },
     loadMore() {
       console.log('loadMore')
+    },
+    hideLoading() {
+      this.showLoading = false;
+    },
+    backTop() {
+      animate(document.body, {scrollTop: '0'}, 400,'ease-out');
     }
   }
 }
