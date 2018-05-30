@@ -5,6 +5,7 @@ import less from '@/pages/less/less';
 import login from '@/pages/login/login';
 import city from '@/pages/city/city';
 import msite from '@/pages/msite/msite';
+import discover from '@/pages/discover/discover';
 
 Vue.use(Router);
 
@@ -34,6 +35,10 @@ export default new Router({
     {
       path: '/msite',
       component: msite,
+    },
+    {
+      path: '/discover',
+      component: discover,
     },
   ],
 });
