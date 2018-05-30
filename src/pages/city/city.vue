@@ -1,7 +1,7 @@
 <template>
   <div class="city-container">
     <headTop :head-title="cityname" go-back='true'>
-      <router-link to="/home" slot="changecity" class="change_city">切换城市</router-link>
+      <router-link to="/home" slot="changecity" class="change_city" :replace="true">切换城市</router-link>
     </headTop>
     <form class="form-city" @submit.prevent>
       <div>
@@ -85,8 +85,12 @@ export default {
       if(!checkrepeat) {
         this.placehistory.push(choosePlace);
       }
-      setStore('placeHistory',this.placehistory);
-      this.$router.push({
+      setStore('placeHistory', this.placehistory);
+      // this.$router.push({
+      //   path: '/msite',
+      //   query: { geohash: choosePlace.geohash }
+      // });
+      this.$router.replace({
         path: '/msite',
         query: { geohash: choosePlace.geohash }
       });

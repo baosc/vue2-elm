@@ -62,7 +62,7 @@ export default {
     } else {
       //不存在
       let res = await cityGuess();
-      this.geohash = address.latitude + ',' + address.longitude;
+      this.geohash = res.latitude + ',' + res.longitude;
     }
     //保存geohash到vuex
     this.SAVE_GEOHASH(this.geohash);
@@ -151,6 +151,7 @@ export default {
   }
 }
 .shop-list-container{
+  padding-bottom: 2.1rem;
   background: #fff;
   .shop-header{
     padding-left: .3rem;
