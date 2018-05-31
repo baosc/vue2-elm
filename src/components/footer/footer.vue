@@ -1,6 +1,6 @@
 <template>
   <div class="footer-guide">
-    <router-link :to="link" v-for="link in guides" 
+    <router-link :to="link" v-for="(link, index) in guides" :key="index" 
       :replace="true" :class="{'guide-active': link.path == activePath}" class="guide">
       <i class="icon iconfont guide-icon" :class="link.icon"></i>
       <span class="guide-title">{{link.title}}</span>
@@ -13,8 +13,8 @@ export default {
   data() {
     return {
       guides: [
-        { path:'msite', query: { plan: 'private' }, title: '首页', icon: 'icon-home' },
-        { path:'discover', params: { userId: 123 }, title: '发现', icon: 'icon-discover' },
+        { path:'msite', title: '首页', icon: 'icon-home' },
+        { path:'discover', title: '发现', icon: 'icon-discover' },
         { path:'order', title: '订单', icon: 'icon-order' },
         { path:'profile', title: '我的', icon: 'icon-me' },
       ],

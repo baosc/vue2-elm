@@ -59,6 +59,8 @@ export default {
     const geohash = this.$route.query.geohash;
     if(geohash) {
       this.geohash = geohash;
+    } else if(this.$store.state.geohash) {
+      this.geohash = this.$store.state.geohash
     } else {
       //不存在
       let res = await cityGuess();
@@ -93,10 +95,17 @@ export default {
           loop: true
       });
     });
-
   },
   methods: {
     ...mapMutations(['SAVE_GEOHASH', 'RECODE_ADDRESS'])
+  },
+  beforeRouteLeave(to, from, next) {
+    /**
+     * 设置当前页面以及目标页面是否缓存
+     */
+    from.meta.keepAlive = true;
+    to.meta.keepAlive = true;
+    next();
   }
 }
 </script>

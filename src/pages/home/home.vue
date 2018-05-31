@@ -10,7 +10,7 @@
         <span>当前定位城市：</span>
         <span>定位不准时，请在城市列表中选择</span>
       </div>
-      <router-link :to="'/city/' + guessCityid" class="guess-city">
+      <router-link :to="'/city/' + guessCityid" class="guess-city" replace>
         <span>{{guessCity}}</span>
         <svg class="arrow_right">
           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
@@ -22,7 +22,7 @@
       <h4 class="city-title">热门城市</h4>
       <ul class="city-list clear">
         <router-link tag="li" v-for="(city, index) in hotCity" :key="'hot-city-' + index"
-          :to="'/city/' + city.id">
+          :to="'/city/' + city.id" replace>
           {{city.name}}
         </router-link>
       </ul>
@@ -35,7 +35,7 @@
           <h4 class="letter-group-title">{{key}}</h4>
           <ul class="letter-cities clear">
             <router-link tag="li" v-for="(city, index) in letterCity" :key="index"
-              :to="'/city/' + city.id" class="letter-city ellipsis">
+              :to="'/city/' + city.id" class="letter-city ellipsis" replace>
               {{city.name}}
             </router-link>
           </ul>

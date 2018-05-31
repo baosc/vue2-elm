@@ -71,5 +71,6 @@ export default {
     position: fixed;
     bottom: 5rem;
     right: 0;
+    z-index: 99;
   }
 </style>

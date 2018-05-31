@@ -6,6 +6,8 @@ import login from '@/pages/login/login';
 import city from '@/pages/city/city';
 import msite from '@/pages/msite/msite';
 import discover from '@/pages/discover/discover';
+import order from '@/pages/order/order';
+import profile from '@/pages/profile/profile';
 
 Vue.use(Router);
 
@@ -19,6 +21,9 @@ export default new Router({
     {
       path: '/home',
       component: home,
+      meta: {
+        keepAlive: true,
+      },
     },
     {
       path: '/less',
@@ -35,10 +40,21 @@ export default new Router({
     {
       path: '/msite',
       component: msite,
+      meta: {
+        keepAlive: true,
+      },
     },
     {
       path: '/discover',
       component: discover,
+    },
+    {
+      path: '/order',
+      component: order,
+    },
+    {
+      path: '/profile',
+      component: profile,
     },
   ],
 });
