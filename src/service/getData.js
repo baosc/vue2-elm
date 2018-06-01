@@ -120,4 +120,5 @@ export const shopList = (latitude, longitude, offset,
  * 获取客户端IP
  */
 
-export const getClientIp = () => 'http://192.168.9.224:8080';
+export const shopMenu = () => {
+};

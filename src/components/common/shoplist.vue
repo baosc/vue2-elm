@@ -1,7 +1,7 @@
 <template>
   <div class="shoplist-container">
     <ul v-load-more="loadMore">
-      <li v-for="item in shopListArr" :key="item.id" class="shop-li">
+      <li v-for="item in shopListArr" :key="item.id" class="shop-li" @click="goShop(item.id)">
         <section>
 					<img :src="imgBaseUrl + item.image_path" class="shop-img">
 				</section>
@@ -39,7 +39,8 @@ import { showBack, animate } from 'config/mUtils';
 import { shopList } from 'getData';
 export default {
   name: 'shopList',
-  mixins: [loadMore],
+  mixins: [ loadMore],
+  props: ['geohash'],
   data() {
     return {
       offset: 0, //分页加载数据列表，每次加载20个
@@ -71,14 +72,20 @@ export default {
       });
     },
     loadMore() {
-      console.log('loadMore')
+      console.log('loadMore');
+    },
+    goShop(shopId) {
+      this.$router.push({
+        path: '/shop',
+        query: { geohash: this.geohash, id: shopId }
+      });
     },
     hideLoading() {
       this.showLoading = false;
     },
     backTop() {
       animate(document.body, {scrollTop: '0'}, 400,'ease-out');
-    }
+    },
   }
 }
 </script>

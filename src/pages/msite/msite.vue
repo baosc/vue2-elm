@@ -30,7 +30,7 @@
         <i class="icon iconfont icon-shop"></i>
         <span class="shop-header-title">附件商家</span>
       </header>
-      <shop-list></shop-list>
+      <shop-list :geohash="geohash"></shop-list>
     </div>
     <footer-bottom></footer-bottom>
   </div>

@@ -10,7 +10,14 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      // '/ele/apis/**': {
+      //   target: 'https://h5.ele.me/restapi/',
+      //   changeOrigin: true,
+      //   secure: false,
+      //   pathRewrite: { '~/ele/apis': '' },
+      // },
+    },
 
     // Various Dev Server settings
     host: '0.0.0.0', // can be overwritten by process.env.HOST

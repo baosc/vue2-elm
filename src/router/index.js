@@ -8,6 +8,7 @@ import msite from '@/pages/msite/msite';
 import discover from '@/pages/discover/discover';
 import order from '@/pages/order/order';
 import profile from '@/pages/profile/profile';
+import shop from '@/pages/shop/shop';
 
 Vue.use(Router);
 
@@ -55,6 +56,10 @@ export default new Router({
     {
       path: '/profile',
       component: profile,
+    },
+    {
+      path: '/shop',
+      component: shop,
     },
   ],
 });

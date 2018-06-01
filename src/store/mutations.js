@@ -2,6 +2,7 @@ import {
   GET_USERINFO,
   SAVE_GEOHASH,
   RECODE_ADDRESS,
+  INIT_BUYCART,
 } from './mutation-types';
 
 export default {
@@ -27,5 +28,7 @@ export default {
   [RECODE_ADDRESS] (state, { latitude, longitude }) {
     state.latitude = latitude;
     state.longitude = longitude;
+  },
+  [INIT_BUYCART] () {
   },
 };
