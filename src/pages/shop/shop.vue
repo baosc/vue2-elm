@@ -4,6 +4,9 @@
       <nav class="goback"></nav>
     </section>
     <loading v-show="showLoading"></loading>
+    <section class="shop-back-svg-container" v-if="showLoading">
+      <img src="../../assets/images/shop_back_svg.svg">
+    </section>
   </div>
 </template>
 
@@ -40,5 +43,12 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
+@import '../../assets/style/mixin.less';
+.shop-back-svg-container{
+  position: fixed;
+  .widthHeight(100%, 100%);
+  img{
+    .widthHeight(100%, 100%);
+  }
+}
 </style>
