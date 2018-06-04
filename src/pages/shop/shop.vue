@@ -1,31 +1,33 @@
 <template>
-  <div class="shop-container">
-    <header class="shop-header">
-      <nav :style="shopSign" class="shop-header-nav">
-        <i class="icon iconfont icon-back"></i>
-      </nav>
-      <section class="shop-header-sign">
-        <img class="sign-logo" :style="shopLogo" />
-        <div class="sign-shop">
-          <h2>{{shopDetails.name}}</h2>
-          <div>
-            <span>{{shopDetails.rating}}</span>
-            <span>月售{{shopDetails.recent_order_num}}单</span>
-            <span>商家配送约 {{shopDetails.order_lead_time}}分钟</span>
-            <span>距离 {{shopDetails.distance}}米</span>
+  <div>
+    <div class="shop-container">
+      <header class="shop-header">
+        <nav :style="shopSign" class="shop-header-nav">
+          <i class="icon iconfont icon-back"></i>
+        </nav>
+        <section class="shop-header-sign">
+          <img class="sign-logo" :style="shopLogo" />
+          <div class="sign-shop">
+            <h2>{{shopDetails.name}}</h2>
+            <div>
+              <span>{{shopDetails.rating}}</span>
+              <span>月售{{shopDetails.recent_order_num}}单</span>
+              <span>商家配送约 {{shopDetails.order_lead_time}}分钟</span>
+              <span>距离 {{shopDetails.distance}}米</span>
+            </div>
+            <p></p>
           </div>
-          <p></p>
-        </div>
+        </section>
+      </header>
+      <section class="shop-tab-container">
+        <div class="shop-tab">点餐</div>
+        <div class="shop-tab">评价</div>
+        <div class="shop-tab">商家</div>
       </section>
-    </header>
-    <section class="shop-tab-container">
-      <div class="shop-tab">点餐</div>
-      <div class="shop-tab">评价</div>
-      <div class="shop-tab">商家</div>
-    </section>
-    <section class="food-container"></section>
-    <section class="rating-container"></section>
-    <section class="info-container"></section>
+      <section class="food-container"></section>
+      <section class="rating-container"></section>
+      <section class="info-container"></section>
+    </div>
     <loading v-show="showLoading"></loading>
     <section class="shop-back-svg-container" v-if="showLoading">
       <img src="../../assets/images/shop_back_svg.svg">
