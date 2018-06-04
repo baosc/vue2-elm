@@ -19,6 +19,7 @@ export default {
     return {
       geohash: '',
       shopId: 0,
+      shopDetails: {},
       menuList: [], //商品列表
       showLoading: true, //显示加载动画
     }
@@ -26,17 +27,21 @@ export default {
   created() {
     this.geohash = this.$route.query.geohash;
     this.shopId = this.$route.query.id;
-    this.shopId = 308690;
     //网页初始化时从本地缓存获取购物车数据
     this.INIT_BUYCART();
   },
   mounted() {
-    console.log(this.axios);
     this.initData();
   },
   methods: {
     ...mapMutations(['INIT_BUYCART']),
     async initData() {
+      let shopMenu = await this.$axios.get('/api/shopMenu');
+      let restaurant = await this.$axios.get('/api/restaurant');
+      this.menuList == shopMenu.data;
+      this.shopDetails = restaurant.data;
+      console.log(this.menuList);
+      console.log(this.shopDetails);
     }
   }
 }
