@@ -95,7 +95,8 @@ export default {
         let url =  this.shopDetails.image_path;
         url = this.handlerImagePath(url);
         styles = {
-          'background-image': 'url(' + url + '?imageMogr/format/webp/thumbnail/!130x130r/gravity/Center/crop/130x130/)'
+          'background-image':
+          `url(${url}?imageMogr/format/webp/thumbnail/!130x130r/gravity/Center/crop/130x130/)`,
         }
       }
       return styles;
