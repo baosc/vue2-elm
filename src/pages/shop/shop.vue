@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="shop-container">
+    <div class="shop-container" v-show="!showLoading">
       <header class="shop-header">
         <nav :style="shopSign" class="shop-header-nav">
           <i class="icon iconfont icon-back"></i>
@@ -20,15 +20,58 @@
         </section>
       </header>
       <section class="shop-tab-container">
-        <div class="shop-tab">点餐</div>
-        <div class="shop-tab">评价</div>
-        <div class="shop-tab">商家</div>
+        <div class="shop-tab" 
+          :class="{'active-tab': showType == showTypeList[0]}" 
+          @click="showType = showTypeList[0]">
+          <span>点餐</span>
+        </div>
+        <div class="shop-tab" 
+          :class="{'active-tab': showType == showTypeList[1]}" 
+          @click="showType = showTypeList[1]">
+          <span>评价</span>
+        </div>
+        <div class="shop-tab" 
+          :class="{'active-tab': showType == showTypeList[2]}" 
+          @click="showType = showTypeList[2]">
+          <span>商家</span>
+        </div>
       </section>
-      <section class="food-container"></section>
-      <section class="rating-container"></section>
-      <section class="info-container"></section>
+
+      <transition name="fade-choose">
+        <section class="food-container" v-show="showType == showTypeList[0]">
+          <section class="menu-container" :style="foodConHeight">
+            <ul class="menu-nav">
+              <li v-for="(item, index) in menuList" :key="index" role="button">
+                <img v-if="item.icon_url" />
+                <span>{{item.name}}</span>
+              </li>
+              <li v-for="(item, index) in menuList" :key="index + '2'" role="button">
+                <img v-if="item.icon_url" />
+                <span>{{item.name}}</span>
+              </li>
+            </ul>
+            <section class="menu-list">
+            </section>
+          </section>
+          <section class="buy-cart-container">
+            购物车
+          </section>
+        </section>
+      </transition>
+      
+      <transition name="fade-choose">
+        <section class="rating-container" v-show="showType == showTypeList[1]">
+2
+        </section>
+      </transition>
+      
+      <transition name="fade-choose">
+        <section class="info-container" v-show="showType == showTypeList[2]">
+3
+        </section>
+      </transition>
     </div>
-    <loading v-show="showLoading"></loading>
+    <loading class="shop-loading" v-show="showLoading"></loading>
     <section class="shop-back-svg-container" v-if="showLoading">
       <img src="../../assets/images/shop_back_svg.svg">
     </section>
@@ -50,6 +93,8 @@ export default {
       shopDiscuss: {},//评价
       showLoading: true, //显示加载动画
       windowHeight: null, //屏幕高度
+      showTypeList: ['food', 'rating', 'business'],
+      showType: 'food', //展示类型： 点餐、评价、商家
     }
   },
   created() {
@@ -59,7 +104,10 @@ export default {
     this.INIT_BUYCART();
   },
   mounted() {
-    this.initData();
+    this.windowHeight = window.innerHeight;
+    setTimeout(() => {
+      this.initData();
+    }, 1000);
   },
   methods: {
     ...mapMutations(['INIT_BUYCART']),
@@ -70,6 +118,7 @@ export default {
       this.shopDetails = restaurant.data;
       console.log(this.menuList);
       console.log(this.shopDetails);
+      this.showLoading = false;
     },
     handlerImagePath(id) {
       const path = id.substr(0, 1) + '/' + id.substr(1, 2) + '/' + id.substr(3);
@@ -100,6 +149,12 @@ export default {
         }
       }
       return styles;
+    },
+    foodConHeight() {
+      const h = this.windowHeight - 30 - 50;
+      return {
+        height: h + 'px'
+      }
     }
   }
 }
@@ -160,7 +215,44 @@ export default {
     width: 100%;
     padding: 0.25rem 0;
     text-align: center;
+    &.active-tab{
+      span{
+        position: relative;
+        &:after{
+          content: '';
+          position: absolute;
+          left: 0;
+          right: 0;
+          height: .08rem;
+          bottom: -.3rem;
+          background-color: red;
+        }
+      }
+    }
   }
+}
+
+.menu-container{
+  display: flex;
+  .menu-nav{
+    width: 3rem;
+  }
+  .menu-list{
+    flex-grow: 1;
+  }
+}
+
+.buy-cart-container{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3rem;
+}
+
+
+.shop-loading{
+  z-index: 11;
 }
 .shop-back-svg-container{
   position: fixed;
@@ -169,5 +261,14 @@ export default {
   img{
     .widthHeight(100%, 100%);
   }
+}
+.fade-choose-enter-active, .fade-choose-leave-active {
+    transition: opacity .5s;
+}
+.fade-choose-leave, .fade-choose-leave-active {
+    display: none;
+}
+.fade-choose-enter, .fade-choose-leave-active {
+    opacity: 0;
 }
 </style>
