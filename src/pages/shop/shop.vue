@@ -45,12 +45,39 @@
                 <img v-if="item.icon_url" />
                 <span>{{item.name}}</span>
               </li>
-              <li v-for="(item, index) in menuList" :key="index + '2'" role="button">
-                <img v-if="item.icon_url" />
-                <span>{{item.name}}</span>
-              </li>
             </ul>
             <section class="menu-list">
+              <dl v-for="(item, index) in menuList" :key="index" role="button">
+                <dt role="heading">
+                  <div class="category-title">
+                    <strong class="category-name">{{item.name}}</strong>
+                    <span class="category-desc">{{item.description}}</span>
+                  </div>
+                </dt>
+                <dd v-for="(food, index) in item.foods" role="menuitem">
+                  <div class="fooddetail">
+                    <span class="fooddetail-logo">
+                      <img :src="getFoodLogo(food.image_path)"/>
+                    </span>
+                    <section class="fooddetail-info">
+                      <p class="fooddetail-name ellipsis">{{food.name}}</p>
+                      <p class="fooddetail-desc ellipsis">{{food.description}}</p>
+                      <p class="fooddetail-sales ellipsis">
+                        <span>月售{{food.month_sales}}份</span>
+                        <span>好评率{{food.satisfy_rate}} %</span>
+                      </p>
+                      <div class="fooddetail-activity-row"></div>
+                      <strong class="fooddetail-price">
+                        <span class="price">¥ {{food.specfoods[0].price}}</span>
+                        <del class="original-price" v-if="food.specfoods[0].original_price">
+                          ¥ {{food.specfoods[0].original_price}}
+                        </del>
+                      </strong>
+                      <div class="fooddetail-button"></div>
+                    </section>
+                  </div>
+                </dd>
+              </dl>
             </section>
           </section>
           <section class="buy-cart-container">
@@ -119,6 +146,10 @@ export default {
       console.log(this.menuList);
       console.log(this.shopDetails);
       this.showLoading = false;
+    },
+    getFoodLogo(id) {
+      let url = this.handlerImagePath(id);
+      return url + '?imageMogr/format/webp/thumbnail/!140x140r/gravity/Center/crop/140x140/'
     },
     handlerImagePath(id) {
       const path = id.substr(0, 1) + '/' + id.substr(1, 2) + '/' + id.substr(3);
@@ -235,10 +266,73 @@ export default {
 .menu-container{
   display: flex;
   .menu-nav{
+    flex: none;
     width: 3rem;
+    font-size: .55rem;
+    text-align: center;
+    li{
+      padding: .4rem .2rem;
+    }
   }
   .menu-list{
-    flex-grow: 1;
+    flex: auto;
+    overflow: hidden;
+    overflow-y: auto;
+    .category-title{
+      display: flex;
+      padding: .5rem 1.4rem .5rem .5rem;
+      border-bottom: 1px solid #e4e4e4;
+      .category-name{
+        font-size: .45rem;
+        flex: none;
+      }
+      .category-desc{
+        flex: auto;
+        font-size: .45rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+    .fooddetail{
+      display: flex;
+      padding: .5rem;
+      .fooddetail-logo{
+        flex: none;
+        width: 3rem;
+        height: 3rem;
+        margin-right: .45rem;
+        img{
+          width: 100%;
+        }
+      }
+      .fooddetail-info{
+        flex: auto;
+        .fooddetail-name{
+          font-size: 0.6rem;
+          font-weight: 700;
+        }
+        .fooddetail-desc{
+          font-size: 0.45rem;
+          width: 7.5rem;
+          padding-top: .1rem;
+        }
+        .fooddetail-sales{
+          font-size: 0.5rem;
+          width: 7.5rem;
+          padding-top: .1rem;
+        }
+        .fooddetail-price{
+          .price{
+            font-size: .55rem;
+            color: #f60;
+          }
+          .original-price{
+            font-size: .45rem;
+          }
+        }
+      }
+    }
   }
 }
 
