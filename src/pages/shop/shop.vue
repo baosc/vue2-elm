@@ -19,7 +19,7 @@
           </div>
         </section>
       </header>
-      <section class="shop-tab-container">
+      <section ref="shopTabContainer" class="shop-tab-container">
         <div class="shop-tab" 
           :class="{'active-tab': showType == showTypeList[0]}" 
           @click="showType = showTypeList[0]">
@@ -42,6 +42,10 @@
           <section class="menu-container" :style="foodConHeight">
             <ul class="menu-nav">
               <li v-for="(item, index) in menuList" :key="index" role="button">
+                <img v-if="item.icon_url" />
+                <span>{{item.name}}</span>
+              </li>
+              <li v-for="(item, index) in menuList" :key="index + '2'" role="button">
                 <img v-if="item.icon_url" />
                 <span>{{item.name}}</span>
               </li>
@@ -80,7 +84,7 @@
               </dl>
             </section>
           </section>
-          <section class="buy-cart-container">
+          <section ref="buyCartContainer" class="buy-cart-container">
             购物车
           </section>
         </section>
@@ -120,6 +124,7 @@ export default {
       shopDiscuss: {},//评价
       showLoading: true, //显示加载动画
       windowHeight: null, //屏幕高度
+      menuHeight: 400, //菜单区域高度
       showTypeList: ['food', 'rating', 'business'],
       showType: 'food', //展示类型： 点餐、评价、商家
     }
@@ -146,6 +151,8 @@ export default {
       console.log(this.menuList);
       console.log(this.shopDetails);
       this.showLoading = false;
+
+      this.initMenuHeight();
     },
     getFoodLogo(id) {
       let url = this.handlerImagePath(id);
@@ -155,6 +162,19 @@ export default {
       const path = id.substr(0, 1) + '/' + id.substr(1, 2) + '/' + id.substr(3);
       const extend =  id.substr(32);
       return baseImgUrl + path + '.'+extend;
+    },
+    initMenuHeight() {
+      if(this.$refs.shopTabContainer.offsetHeight === 0) {
+        setTimeout(() => {
+          this.initMenuHeight();
+        }, 1000);
+        return;
+      }
+      const h = this.windowHeight - this.$refs.shopTabContainer.offsetHeight
+           - this.$refs.buyCartContainer.offsetHeight + 10;
+      console.log(this.windowHeight + '  ' + this.$refs.shopTabContainer.offsetHeight +
+        '  ' + this.$refs.buyCartContainer.offsetHeight);
+      this.menuHeight = h;
     }
   },
   computed: {
@@ -182,9 +202,8 @@ export default {
       return styles;
     },
     foodConHeight() {
-      const h = this.windowHeight - 30 - 50;
       return {
-        height: h + 'px'
+        height: this.menuHeight + 'px'
       }
     }
   }
@@ -265,13 +284,16 @@ export default {
 
 .menu-container{
   display: flex;
+  margin-bottom: 3rem;
   .menu-nav{
     flex: none;
     width: 3rem;
     font-size: .55rem;
     text-align: center;
+    overflow: hidden;
+    overflow-y: auto;
     li{
-      padding: .4rem .2rem;
+      padding: .6rem .2rem;
     }
   }
   .menu-list{
@@ -342,6 +364,7 @@ export default {
   left: 0;
   right: 0;
   height: 3rem;
+  background: bisque;
 }
 
 
