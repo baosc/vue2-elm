@@ -40,17 +40,19 @@
       <transition name="fade-choose">
         <section class="food-container" v-show="showType == showTypeList[0]">
           <section class="menu-container" :style="foodConHeight">
-            <ul class="menu-nav">
-              <li v-for="(item, index) in menuList" :key="index" role="button">
-                <img v-if="item.icon_url" />
-                <span>{{item.name}}</span>
-              </li>
-              <li v-for="(item, index) in menuList" :key="index + '2'" role="button">
-                <img v-if="item.icon_url" />
-                <span>{{item.name}}</span>
-              </li>
-            </ul>
-            <section class="menu-list">
+            <section class="menu-nav">
+              <ul>
+                <li v-for="(item, index) in menuList" :key="index" role="button">
+                  <img v-if="item.icon_url" />
+                  <span>{{item.name}}</span>
+                </li>
+                <li v-for="(item, index) in menuList" :key="index + '2'" role="button">
+                  <img v-if="item.icon_url" />
+                  <span>{{item.name}}</span>
+                </li>
+              </ul>
+            </section>
+            <section class="menu-list" :style="foodConHeight">
               <dl v-for="(item, index) in menuList" :key="index" role="button">
                 <dt role="heading">
                   <div class="category-title">
@@ -70,14 +72,21 @@
                         <span>月售{{food.month_sales}}份</span>
                         <span>好评率{{food.satisfy_rate}} %</span>
                       </p>
-                      <div class="fooddetail-activity-row"></div>
+                      <div class="fooddetail-activity-row" v-if="food.activity">
+                        <span class="food-activity">
+                          <span class="food-rateGhost">5折</span>
+                          <span class="food-rateTextGhost">{{food.activity.applicable_quantity_text}}</span>
+                        </span>
+                      </div>
                       <strong class="fooddetail-price">
                         <span class="price">¥ {{food.specfoods[0].price}}</span>
                         <del class="original-price" v-if="food.specfoods[0].original_price">
                           ¥ {{food.specfoods[0].original_price}}
                         </del>
                       </strong>
-                      <div class="fooddetail-button"></div>
+                      <div class="fooddetail-button">
+
+                      </div>
                     </section>
                   </div>
                 </dd>
@@ -92,13 +101,13 @@
       
       <transition name="fade-choose">
         <section class="rating-container" v-show="showType == showTypeList[1]">
-2
+          2
         </section>
       </transition>
       
       <transition name="fade-choose">
         <section class="info-container" v-show="showType == showTypeList[2]">
-3
+          3
         </section>
       </transition>
     </div>
@@ -112,9 +121,10 @@
 <script>
 import { mapMutations } from 'vuex';
 import loading from 'components/common/loading';
+import Scroll from 'components/base/scroll';
 const baseImgUrl = 'https://fuss10.elemecdn.com/';
 export default {
-  components: { loading },
+  components: { loading, Scroll },
   data() {
     return {
       geohash: '',
@@ -127,6 +137,8 @@ export default {
       menuHeight: 400, //菜单区域高度
       showTypeList: ['food', 'rating', 'business'],
       showType: 'food', //展示类型： 点餐、评价、商家
+      listenScroll: true,
+      probeType: 2
     }
   },
   created() {
@@ -171,10 +183,13 @@ export default {
         return;
       }
       const h = this.windowHeight - this.$refs.shopTabContainer.offsetHeight
-           - this.$refs.buyCartContainer.offsetHeight + 10;
+           - this.$refs.buyCartContainer.offsetHeight;
       console.log(this.windowHeight + '  ' + this.$refs.shopTabContainer.offsetHeight +
         '  ' + this.$refs.buyCartContainer.offsetHeight);
       this.menuHeight = h;
+    },
+    menuListScroll() {
+      console.log('scroll')
     }
   },
   computed: {
@@ -216,6 +231,7 @@ export default {
   background: #fff;
 }
 .shop-header{
+  padding-bottom: .75rem;
   .shop-header-nav{
     position: relative;
     height: 4.2rem;
@@ -259,7 +275,6 @@ export default {
 }
 .shop-tab-container{
   .flex(space-around);
-  padding-top: .75rem;
   font-size: .75rem;
   .shop-tab{
     width: 100%;
@@ -343,6 +358,20 @@ export default {
           font-size: 0.5rem;
           width: 7.5rem;
           padding-top: .1rem;
+        }
+        .fooddetail-activity-row{
+          padding-top: .1rem;
+          font-size: .3rem;
+          .food-rateGhost{
+            padding: 0 .2rem;
+            color: #fff;
+            background-image: linear-gradient(90deg, #ff7416, #ff3c15)
+          }
+          .food-rateTextGhost{
+            color: #f07373;
+            border: 1px solid #ff3c15;
+            border-left: none;
+          }
         }
         .fooddetail-price{
           .price{

@@ -16,7 +16,6 @@ Vue.config.productionTip = false;
 Vue.use(Vuex);
 Vue.prototype.$axios = axios;
 
-
 /* eslint-disable no-new  */
 new Vue({
   el: '#app',
