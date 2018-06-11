@@ -39,6 +39,7 @@
 
       <transition name="fade-choose">
         <section class="food-container" v-show="showType == showTypeList[0]">
+          <!-- 菜单 -->
           <section class="menu-container" :style="foodConHeight">
             <section class="menu-nav">
               <ul>
@@ -60,7 +61,7 @@
                     <span class="category-desc">{{item.description}}</span>
                   </div>
                 </dt>
-                <dd v-for="(food, index) in item.foods" role="menuitem">
+                <dd v-for="(food, index) in item.foods" :key="index" role="menuitem">
                   <div class="fooddetail">
                     <span class="fooddetail-logo">
                       <img :src="getFoodLogo(food.image_path)"/>
@@ -93,9 +94,30 @@
               </dl>
             </section>
           </section>
+          <!-- 购物车 -->
           <section ref="buyCartContainer" class="buy-cart-container">
-            购物车
+            <span role="button" class="cart-icon iconfont icon-gouwuche"></span>
+            <div role="button" class="cart-info">
+              <p>
+                <span>¥0</span>
+              </p>
+              <p>配送费¥6</p>
+            </div>
+            <div class="cart-gotopay">
+              <span>20元起送</span>
+              <small></small>
+            </div>
           </section>
+          <!-- 已选列表 -->
+          <transition name="toggle-cart">
+            <section class="cart-food-list" v-show="showCartList && cartFoodList.length">
+              已选列表
+            </section>
+          </transition>
+          <!-- 遮罩 -->
+          <transition name="fade">
+            <div class="screen-mask" v-show="showCartList && cartFoodList.length"></div>
+          </transition>
         </section>
       </transition>
       
@@ -138,7 +160,11 @@ export default {
       showTypeList: ['food', 'rating', 'business'],
       showType: 'food', //展示类型： 点餐、评价、商家
       listenScroll: true,
-      probeType: 2
+      probeType: 2,
+
+      //购物车
+      cartFoodList: [],   //已选列表
+      showCartList: false,  //显示？已选列表
     }
   },
   created() {
@@ -296,7 +322,6 @@ export default {
     }
   }
 }
-
 .menu-container{
   display: flex;
   margin-bottom: 3rem;
@@ -386,14 +411,36 @@ export default {
     }
   }
 }
-
 .buy-cart-container{
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   height: 3rem;
+  display: flex;
+  flex-wrap: nowrap;
   background: bisque;
+  .cart-icon{
+    position: absolute;
+    top: -.8rem;
+    left: .4rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background-image: radial-gradient(circle, #363636 .8rem, #444 0);
+    &::before{
+      .center();
+    }
+  }
+  .cart-info{
+    flex: auto;
+    padding-left: 4rem;
+  }
+  .cart-gotopay{
+    flex: none;
+    width: 3.5rem;
+    font-size: .65rem;
+  }
 }
 
 
