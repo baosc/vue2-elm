@@ -85,8 +85,11 @@
                           ¥ {{food.specfoods[0].original_price}}
                         </del>
                       </strong>
-                      <div class="fooddetail-button">
-
+                      <div class="fooddetail-choose">
+                        <span class="reduce-icon iconfont icon-reduce"></span>
+                        <span class="total-icon">2</span>
+                        <span class="standard-icon iconfont">选规格</span>
+                        <span class="add-icon iconfont icon-add"></span>
                       </div>
                     </section>
                   </div>
@@ -98,10 +101,10 @@
           <section ref="buyCartContainer" class="buy-cart-container">
             <span role="button" class="cart-icon iconfont icon-gouwuche"></span>
             <div role="button" class="cart-info">
-              <p>
+              <p class="cart-total">
                 <span>¥0</span>
               </p>
-              <p>配送费¥6</p>
+              <p class="cart-delivery">配送费¥6</p>
             </div>
             <div class="cart-gotopay">
               <span>20元起送</span>
@@ -407,6 +410,31 @@ export default {
             font-size: .45rem;
           }
         }
+        .fooddetail-choose{
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          span{
+            margin-right: 8px;
+            font-size: 1rem;
+          }
+          .reduce-icon{
+            color: #d9d9d9;
+          }
+          .total-icon{
+            font-size: .6rem;
+          }
+          .standard-icon{
+            font-size: .5rem;
+            background: #3199e9;
+            color: #fff;
+            padding: .1rem .2rem;
+            border-radius: 0.4rem;
+          }
+          .add-icon{
+            color: #3199e9;
+          }
+        }
       }
     }
   }
@@ -416,30 +444,47 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 3rem;
+  height: 2rem;
   display: flex;
   flex-wrap: nowrap;
-  background: bisque;
+  background: rgba(61,61,63,.9);
   .cart-icon{
     position: absolute;
-    top: -.8rem;
-    left: .4rem;
-    width: 2.5rem;
-    height: 2.5rem;
+    top: -.5rem;
+    left: .5rem;
+    width: 2.2rem;
+    height: 2.2rem;
     border-radius: 50%;
-    background-image: radial-gradient(circle, #363636 .8rem, #444 0);
+    background-image: radial-gradient(circle, #363636 .9rem, #444 0);
     &::before{
       .center();
+      .sizeColor(.8rem, #afafaf);
     }
   }
   .cart-info{
     flex: auto;
-    padding-left: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 3.6rem;
+    .cart-total{
+      .sizeColor(.8rem, #fff);
+      span{
+        .sizeColor(.8rem, #fff);
+      }
+    }
+    .cart-delivery{
+      flex: 1;
+      .sizeColor(.5rem, #999);
+    }
   }
   .cart-gotopay{
     flex: none;
-    width: 3.5rem;
-    font-size: .65rem;
+    width: 4.5rem;
+    .font(.65rem, 2rem);
+    span{
+      color: #fff;
+    }
   }
 }
 
