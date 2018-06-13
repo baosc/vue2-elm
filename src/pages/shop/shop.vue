@@ -84,13 +84,16 @@
                         <del class="original-price" v-if="food.specfoods[0].original_price">
                           ¥ {{food.specfoods[0].original_price}}
                         </del>
+                        <span v-else-if="food.specifications.length">起</span>
                       </strong>
-                      <div class="fooddetail-choose">
-                        <span class="reduce-icon iconfont icon-reduce"></span>
-                        <span class="total-icon">2</span>
-                        <span class="standard-icon iconfont">选规格</span>
-                        <span class="add-icon iconfont icon-add"></span>
-                      </div>
+                      <footer>
+                        <div class="fooddetail-choose">
+                          <span class="reduce-icon iconfont icon-reduce"></span>
+                          <span class="total-icon">2</span>
+                          <span class="standard-icon iconfont" v-if="food.specifications.length">选规格</span>
+                          <span class="add-icon iconfont icon-add" v-else></span>
+                        </div>
+                      </footer>
                     </section>
                   </div>
                 </dd>
@@ -487,8 +490,6 @@ export default {
     }
   }
 }
-
-
 .shop-loading{
   z-index: 11;
 }
