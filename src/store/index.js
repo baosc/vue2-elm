@@ -11,7 +11,8 @@ const state = {
   longitude: '', // 当前位置经度
   userInfo: null, // 用户信息
   count: 0,
-  geohash: '', // //地址geohash值
+  geohash: '', // 地址geohash值
+  cartList: [], // 购物车商品列表
 };
 
 const store = new Vuex.Store({
